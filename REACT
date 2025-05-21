@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+
+export default function BotnetDetector() {
+  const [text, setText] = useState('');
+  const [botnetScore, setBotnetScore] = useState<number | null>(null);
+  const [reversedText, setReversedText] = useState('');
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const analyzeText = () => {
+    // Placeholder logic for botnet detection
+    const botnetProbability = Math.random(); // Replace with actual logic
+    setBotnetScore(botnetProbability);
+
+    // Reverse the text
+    setReversedText(text.split('').reverse().join(''));
+  };
+
+  return (
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Legal Text Analyzer</h1>
+
+      <div className="mb-4">
+        <label htmlFor="textInput" className="block text-gray-700 text-sm font-bold mb-2">
+          Enter Legal Text:
+        </label>
+        <textarea
+          id="textInput"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          rows={4}
+          value={text}
+          onChange={handleTextChange}
+        ></textarea>
+      </div>
+
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        onClick={analyzeText}
+      >
+        Analyze
+      </button>
+
+      {botnetScore !== null && (
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Botnet Analysis</h2>
+          <p className="text-gray-700">
+            Botnet Probability Score: <span className="font-bold">{botnetScore.toFixed(2)}</span>
+          </p>
+        </div>
+      )}
+
+      {reversedText && (
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Reversed Text</h2>
+          <p className="text-gray-700">
+            <span className="font-bold">Reversed:</span> {reversedText}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
